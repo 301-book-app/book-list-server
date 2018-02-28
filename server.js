@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
+const bodyParser = require('body-parser').urlencoded({ extended: true });
 
 const app = express();
 const PORT = process.env.PORT;
