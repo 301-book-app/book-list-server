@@ -32,7 +32,7 @@ app.get(`/api/v1/books/:id`, (req, res) => {
 app.post('/api/v1/books/add', bodyParser, (req, res) => {
   let {title, author, isbn, image_url, description} = req.body;
   client.query(
-    `INSERT INTO books(title, author, isbn, image_url, description) VALUES ($1, $2, $3, $5, $5);`,
+    `INSERT INTO books(title, author, isbn, image_url, description) VALUES ($1, $2, $3, $4, $5);`,
     [title, author, isbn, image_url, description])
     .then(() => res.sendStatus(201))
     .catch(console.error);
