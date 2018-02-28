@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/301-book-app/book-list-server#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "nodemon": "^1.17.1",
