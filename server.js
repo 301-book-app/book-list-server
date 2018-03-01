@@ -38,6 +38,21 @@ app.post('/api/v1/books/add', bodyParser, (req, res) => {
     .catch(console.error);
 });
 
+app.delete(`/api/v1/books/:id`, (req, res) => {
+  client.query(`DELETE FROM books WHERE book_id=${req.params.id};`)
+    .then(() => res.sendStatus(204))
+    .catch(console.error);
+});
+
+app.put(`/api/v1/books/:id`, bodyParser, (req, res) => {
+  let {title, author, isbn, image_url, description, book_id} = req.body;
+  client.query(
+    `UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5 WHERE book_id=$6;`,
+    [title, author, isbn, image_url, description, book_id])
+    .then(() => res.sendStatus(201))
+    .catch(console.error);
+});
+
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
