@@ -8,6 +8,7 @@ const bodyParser = require('body-parser').urlencoded({ extended: true });
 const app = express();
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
+const TOKEN = process.env.TOKEN;
 
 const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
@@ -49,8 +50,14 @@ app.put(`/api/v1/books/:id`, bodyParser, (req, res) => {
   client.query(
     `UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5 WHERE book_id=$6;`,
     [title, author, isbn, image_url, description, book_id])
-    .then(() => res.sendStatus(201))
+    .then(() => res.sendStatus(200))
     .catch(console.error);
+});
+
+app.get('/admin', (req, res) => {
+  console.log(typeof(req.query.tokenEntered));
+  console.log(typeof(TOKEN));
+  res.send(TOKEN === req.query.tokenEntered);
 });
 
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
