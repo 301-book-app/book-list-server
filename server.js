@@ -24,7 +24,7 @@ app.get('/api/v1/books', (req, res) => {
 });
 
 app.get(`/api/v1/books/:id`, (req, res) => {
-  client.query(`SELECT * FROM books WHERE book_id=$1;`, [req.body.id])
+  client.query(`SELECT * FROM books WHERE book_id=${req.params.id};`)
     .then(results => res.send(results.rows))
     .catch(console.error);
 });
@@ -42,8 +42,7 @@ app.get('*', (req, res) => res.redirect(CLIENT_URL));
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
-// PORT=3000
-// CLIENT_URL=http://localhost:8080
-
-// Mac:
-// DATABASE_URL=postgres://localhost:5432/books_app
+// env variables to set manually when testing locally
+// export PORT=3000
+// export CLIENT_URL=http://localhost:8080
+// Mac: export DATABASE_URL=postgres://localhost:5432/books_app
